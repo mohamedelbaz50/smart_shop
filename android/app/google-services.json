@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "937942745156",
+    "project_id": "smartshop-1f548",
+    "storage_bucket": "smartshop-1f548.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937942745156:android:15d24feb2aa60406573c11",
+        "android_client_info": {
+          "package_name": "com.example.smartshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2Ks4iaxJohSb7eHgKrsfQWTe_iCTFb_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
