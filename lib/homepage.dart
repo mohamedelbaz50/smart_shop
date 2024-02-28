@@ -12,6 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _barcode = "";
+  
   // ignore:
   ProductModel? productModel; // Initialize with null value
 
