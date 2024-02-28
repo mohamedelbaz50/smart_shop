@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _barcode = "";
-  
+
   // ignore:
   ProductModel? productModel; // Initialize with null value
 
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Image.network(productModel!.image!),
                   const SizedBox(
-                    height: 20,
+                    height: 25,
                   ),
                   Text(productModel!.name!), // Add null check
                   Text(productModel!.price!), // Add null check
