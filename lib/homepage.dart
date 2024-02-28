@@ -11,7 +11,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String _barcode = "";
 
   // ignore:
   ProductModel? productModel; // Initialize with null value
@@ -25,7 +24,6 @@ class _HomePageState extends State<HomePage> {
         ScanMode.BARCODE,
       );
       setState(() {});
-      _barcode = barcodeResult;
       getData(barcodeResult: barcodeResult);
     } catch (e) {
       // Handle error
