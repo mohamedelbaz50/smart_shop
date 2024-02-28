@@ -1,31 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-/*class ProductModel {
-  final String name;
-  final String price;
-  final String barcode;
-
-  ProductModel(
-      {required this.name, required this.price, required this.barcode});
-
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'price': price,
-      'barcode': barcode,
-    };
-  }
-
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
-      name: json['name'] ?? '',
-      price: json['price'] ?? '',
-      barcode: json['barcode'] ?? '',
-    );
-  }
-}*/
+import 'package:smartshop/product_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -36,7 +12,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _barcode = "";
-  Map<String, dynamic>? _ProductModel; // Initialize with null value
+  // ignore:
+  ProductModel? productModel; // Initialize with null value
 
   Future<void> _scanBarcode() async {
     try {
@@ -54,14 +31,15 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void getData({required String barcodeResult}) {
-    var result = FirebaseFirestore.instance
+  void getData({required String barcodeResult}) async {
+    await FirebaseFirestore.instance
         .collection('produits')
         .doc(barcodeResult)
-        .get();
-    result.then((value) {
+        .get()
+        .then((value) {
       setState(() {
-        _ProductModel = value.data();
+        productModel = ProductModel.fromJson(value.data()!);
+        print(productModel!.name);
       });
     });
   }
@@ -70,29 +48,30 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Barcode Scanner'),
+        title: const Text('Barcode Scanner'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Barcode: $_barcode'),
-            SizedBox(height: 16),
-            if (_ProductModel != null)
+            const SizedBox(height: 16),
+            if (productModel != null)
               Column(
                 children: [
-                  Text('${_ProductModel!['name']!}'), // Add null check
-                  Text('${_ProductModel!['price']!}'), // Add null check
-                  Text('${_ProductModel!['barcode']!}'), // Add null check
+                  Text(productModel!.name!), // Add null check
+                  Text(productModel!.price!), // Add null check
                 ],
               ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _scanBarcode,
+        onPressed: () {
+          getData(barcodeResult: '6191428604537');
+        },
         tooltip: 'Scan Barcode',
-        child: Icon(Icons.qr_code),
+        child: const Icon(Icons.qr_code),
       ),
     );
   }
