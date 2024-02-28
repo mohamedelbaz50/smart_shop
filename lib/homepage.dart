@@ -54,11 +54,14 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Barcode: $_barcode'),
             const SizedBox(height: 16),
             if (productModel != null)
               Column(
                 children: [
+                  Image.network(productModel!.image!),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Text(productModel!.name!), // Add null check
                   Text(productModel!.price!), // Add null check
                 ],
@@ -67,9 +70,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          getData(barcodeResult: '6191428604537');
-        },
+        onPressed: _scanBarcode,
         tooltip: 'Scan Barcode',
         child: const Icon(Icons.qr_code),
       ),
